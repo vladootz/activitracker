@@ -708,6 +708,10 @@ header h1 {
         padding: 16px;
     }
 
+    .settings-card {
+        flex-basis: 100%;
+    }
+
     .list-header {
         flex-direction: column;
         align-items: flex-start;
