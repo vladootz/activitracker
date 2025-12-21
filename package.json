@@ -1,0 +1,34 @@
+{
+  "name": "activitracker",
+  "version": "2.0.0",
+  "description": "A lightweight, privacy-focused activity tracking web application",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "deploy": "echo 'Ready for deployment - no build step required'"
+  },
+  "keywords": [
+    "activity-tracker",
+    "time-tracking",
+    "analytics",
+    "vanilla-javascript",
+    "privacy-first"
+  ],
+  "author": "Activity Tracker Project",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/activitracker.git"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "cloudflare": {
+    "build": {
+      "command": "echo 'No build required - static files only'",
+      "output": "."
+    }
+  }
+}
