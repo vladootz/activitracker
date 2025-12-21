@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>Activity Tracker</h1>
+        </header>
+
+        <!-- Tab Navigation -->
+        <nav class="tab-nav">
+            <button class="tab-btn active" data-tab="track">Track</button>
+            <button class="tab-btn" data-tab="analytics">Analytics</button>
+            <button class="tab-btn" data-tab="settings">Settings</button>
+        </nav>
+
+        <!-- Track Tab -->
+        <div class="tab-content active" id="track-tab">
+            <!-- Input Form -->
+            <section class="input-section">
+                <h2>Add Activity</h2>
+                <form id="activity-form">
+                    <div class="form-group">
+                        <label for="activity-name">Activity Name</label>
+                        <input
+                            type="text"
+                            id="activity-name"
+                            list="activity-suggestions"
+                            placeholder="e.g., running, reading"
+                            required
+                        >
+                        <datalist id="activity-suggestions"></datalist>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="activity-datetime">Date & Time</label>
+                        <input
+                            type="datetime-local"
+                            id="activity-datetime"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="activity-duration">Duration (mins)</label>
+                        <div class="duration-control">
+                            <button type="button" class="btn-adjust" id="duration-minus">-10</button>
+                            <input
+                                type="number"
+                                id="activity-duration"
+                                min="1"
+                                value="30"
+                                required
+                            >
+                            <button type="button" class="btn-adjust" id="duration-plus">+10</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="activity-details">Details (Optional)</label>
+                        <input
+                            type="text"
+                            id="activity-details"
+                            placeholder="Tags, notes, etc."
+                        >
+                    </div>
+
+                    <button type="submit" class="btn-primary" id="save-btn">Save Activity</button>
+                </form>
+            </section>
+
+            <!-- Activity List -->
+            <section class="list-section">
+                <div class="list-header">
+                    <h2>Activities</h2>
+                    <div class="filter-controls">
+                        <button class="filter-btn active" data-filter="week">This Week</button>
+                        <button class="filter-btn" data-filter="month">This Month</button>
+                        <button class="filter-btn" data-filter="year">Past Year</button>
+                    </div>
+                </div>
+                <div id="activity-list"></div>
+            </section>
+        </div>
+
+        <!-- Analytics Tab -->
+        <div class="tab-content" id="analytics-tab">
+            <section class="analytics-section">
+                <h2>Analytics</h2>
+                <div class="analytics-controls">
+                    <div class="control-group">
+                        <label for="period-type">Period</label>
+                        <select id="period-type">
+                            <option value="weekly">Weekly</option>
+                            <option value="monthly">Monthly</option>
+                            <option value="yearly">Yearly</option>
+                        </select>
+                    </div>
+                    <div class="navigation-controls">
+                        <button class="btn-nav" id="prev-period">← Prev</button>
+                        <span id="current-period-label"></span>
+                        <button class="btn-nav" id="next-period">Next →</button>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="analytics-chart"></canvas>
+                </div>
+            </section>
+        </div>
+
+        <!-- Settings Tab -->
+        <div class="tab-content" id="settings-tab">
+            <section class="settings-section">
+                <h2>Settings</h2>
+
+                <!-- Bulk Rename -->
+                <div class="settings-card">
+                    <h3>Manage Activities</h3>
+                    <div class="form-group">
+                        <label for="rename-old">Select Activity</label>
+                        <select id="rename-old">
+                            <option value="">-- Select Activity --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="rename-new">New Name</label>
+                        <input
+                            type="text"
+                            id="rename-new"
+                            placeholder="Enter new name"
+                        >
+                    </div>
+                    <button class="btn-primary" id="rename-btn">Rename All</button>
+                </div>
+
+                <!-- Data Portability -->
+                <div class="settings-card">
+                    <h3>Data Management</h3>
+                    <div class="data-actions">
+                        <button class="btn-secondary" id="export-btn">Export Data (.json)</button>
+                        <div class="import-wrapper">
+                            <label for="import-file" class="btn-secondary">Import Data</label>
+                            <input
+                                type="file"
+                                id="import-file"
+                                accept=".json"
+                                style="display: none;"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal" id="edit-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Activity</h2>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <form id="edit-form">
+                <div class="form-group">
+                    <label for="edit-activity-name">Activity Name</label>
+                    <input
+                        type="text"
+                        id="edit-activity-name"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-activity-datetime">Date & Time</label>
+                    <input
+                        type="datetime-local"
+                        id="edit-activity-datetime"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-activity-duration">Duration (mins)</label>
+                    <input
+                        type="number"
+                        id="edit-activity-duration"
+                        min="1"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-activity-details">Details</label>
+                    <input
+                        type="text"
+                        id="edit-activity-details"
+                    >
+                </div>
+
+                <button type="submit" class="btn-primary">Update Activity</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
