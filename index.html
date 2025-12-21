@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Activity Tracker</title>
+    <title>Activitracker</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
     <div class="container">
         <!-- Header -->
         <header>
-            <h1>Activity Tracker</h1>
+            <h1>Activitracker</h1>
         </header>
 
         <!-- Tab Navigation -->
@@ -80,13 +79,36 @@
             <section class="list-section">
                 <div class="list-header">
                     <h2>Activities</h2>
-                    <div class="filter-controls">
-                        <button class="filter-btn active" data-filter="week">This Week</button>
-                        <button class="filter-btn" data-filter="month">This Month</button>
-                        <button class="filter-btn" data-filter="year">Past Year</button>
+                    <div class="search-filter-controls">
+                        <div class="search-box">
+                            <input
+                                type="text"
+                                id="activity-search"
+                                placeholder="Search activities..."
+                                class="search-input"
+                            >
+                            <button class="search-clear" id="search-clear-btn" style="display: none;">×</button>
+                        </div>
+                        <div class="filter-controls">
+                            <button class="filter-btn active" data-filter="week">This Week</button>
+                            <button class="filter-btn" data-filter="month">This Month</button>
+                            <button class="filter-btn" data-filter="year">Past Year</button>
+                            <button class="filter-btn" data-filter="all">All Time</button>
+                        </div>
                     </div>
                 </div>
+
+                <!-- Statistics Cards -->
+                <div class="stats-grid" id="stats-grid"></div>
+
                 <div id="activity-list"></div>
+
+                <!-- Pagination -->
+                <div class="pagination" id="pagination-controls" style="display: none;">
+                    <button class="btn-page" id="prev-page">← Previous</button>
+                    <span id="page-info"></span>
+                    <button class="btn-page" id="next-page">Next →</button>
+                </div>
             </section>
         </div>
 
@@ -138,6 +160,19 @@
                         >
                     </div>
                     <button class="btn-primary" id="rename-btn">Rename All</button>
+                </div>
+
+                <!-- Bulk Delete -->
+                <div class="settings-card">
+                    <h3>Bulk Delete</h3>
+                    <div class="form-group">
+                        <label for="bulk-delete-activity">Select Activity to Delete All</label>
+                        <select id="bulk-delete-activity">
+                            <option value="">-- Select Activity --</option>
+                        </select>
+                    </div>
+                    <p class="warning-text">⚠️ This will permanently delete all instances of the selected activity.</p>
+                    <button class="btn-danger" id="bulk-delete-btn">Delete All Instances</button>
                 </div>
 
                 <!-- Data Portability -->
@@ -209,6 +244,7 @@
         </div>
     </div>
 
+    <script src="chart.umd.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
