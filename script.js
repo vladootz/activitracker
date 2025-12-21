@@ -183,8 +183,8 @@ const APP_CONFIG = {
 
     // Chart settings
     CHART_COLORS: {
-        primary: '#5b9dd9',
-        primaryLight: 'rgba(91, 157, 217, 0.1)'
+        primary: '#a8b2bd',
+        primaryLight: 'rgba(168, 178, 189, 0.1)'
     }
 };
 
