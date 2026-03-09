@@ -30,7 +30,7 @@ A lightweight, privacy-focused activity tracking web application built with vani
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/activitracker.git
+git clone https://github.com/vladootz/activitracker.git
 cd activitracker
 
 # Open in browser (no build step required!)
@@ -55,7 +55,7 @@ This app is perfect for Cloudflare Pages deployment - zero build configuration n
    git add .
    git commit -m "Initial commit"
    git branch -M main
-   git remote add origin https://github.com/yourusername/activitracker.git
+   git remote add origin https://github.com/vladootz/activitracker.git
    git push -u origin main
    ```
 
@@ -69,7 +69,7 @@ This app is perfect for Cloudflare Pages deployment - zero build configuration n
      - **Build output directory:** `/`
    - Click "Save and Deploy"
 
-3. **Done!** Your app will be live at `https://your-project.pages.dev`
+3. **Done!** Your app will be live at `https://activitracker.pages.dev`
 
 #### Option 2: Direct Upload (Wrangler)
 
